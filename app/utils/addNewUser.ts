@@ -10,9 +10,7 @@ export async function addNewUser(uname: string, email: string) {
         credentials: 'include'
       });
   
-      if (!response.ok) {
-        return null;
-      }
+      
   
       const data = await response.json();
       return data;

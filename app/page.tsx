@@ -37,7 +37,7 @@ export default function WelcomePage() {
           <div className="bg-white shadow-md hover:shadow-lg rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer">
             <FaFileUpload className="text-3xl text-indigo-500 mb-2" />
             <h3 className="text-lg font-semibold text-gray-900">Secure File Storage</h3>
-            <p className="text-sm text-gray-600">Store files safely with end-to-end encryption.</p>
+            <p className="text-sm text-gray-600">Store files safely with solid access control list.</p>
           </div>
 
           {/* Feature Card 2 */}

@@ -34,7 +34,7 @@ export async function POST(request: Request) {
 
     if (!departement) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { message: 'Missing required fields' },
         { status: 400 }
       );
     }
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
 
     if (existingColaboration.length > 0) {
       return NextResponse.json(
-        { error: 'colaboration already exist' },
+        { message: 'colaboration already exist' },
         { status: 400 }
       );
     }

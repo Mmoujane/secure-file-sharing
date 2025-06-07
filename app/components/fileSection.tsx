@@ -3,6 +3,7 @@ import FileCard from './fileCard';
 import { FaFolder, FaFolderOpen, FaTimes } from 'react-icons/fa';
 import { addCategory } from '../utils/addCategory';
 import { getCategories } from '../utils/getCategories';
+import { useRouter } from 'next/navigation';
 
 const files = [
   { id: 1, name: "Work", count: 480, iconColor: "text-indigo-500", icon: FaFolder },
@@ -20,7 +21,8 @@ const FilesSection: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
-  const [categories, setCategories] = useState<Categories[]>([])
+  const [categories, setCategories] = useState<Categories[]>([]);
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,6 +31,8 @@ const FilesSection: React.FC = () => {
     console.log(result);
     setNewCategoryName('');
     setIsModalOpen(false);
+    window.location.reload();
+    
   };
 
   useEffect(() => {

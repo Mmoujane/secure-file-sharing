@@ -31,13 +31,13 @@ export async function POST(request: Request) {
     const token = cookieStore.get('token')?.value;
 
     if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ message: 'Unauthorized', error: true }, { status: 401 });
     }
 
     const { payload } = await jwtVerify(token, JWT_SECRET) as { payload: Payload };
     //console.log(payload);
     if (payload.role !== 'departement_admin') {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      return NextResponse.json({ message: 'Forbidden', error: true }, { status: 403 });
     }
 
     // Parse request body
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
 
     if (!uname || !email) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { message: 'Missing required fields', error: true },
         { status: 400 }
       );
     }
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
 
     if (existinguser) {
       return NextResponse.json(
-        { error: 'user already exist' },
+        { message: 'user already exist', error: true },
         { status: 400 }
       );
     }
@@ -108,6 +108,7 @@ export async function POST(request: Request) {
     // Return success response with the generated password
     return NextResponse.json({
       message: 'user created successfully',
+      error: false,
       department: {
         name: payload.departement
       },
@@ -122,7 +123,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error creating user:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { massage: 'Internal server error', error: true },
       { status: 500 }
     );
   }

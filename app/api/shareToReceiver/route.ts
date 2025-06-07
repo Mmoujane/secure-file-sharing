@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     if (!fileId || !payload.userId || !email) {
         return NextResponse.json(
-          { error: 'Missing required fields' },
+          { message: 'Missing required fields' },
           { status: 400 }
         );
     }
@@ -37,10 +37,12 @@ export async function POST(request: Request) {
     // Check if file already exists
     const existingfile = await sharedFileService.getSharedFileById(fileId);
     console.log(existingfile);
+    const DepartementSharedFiles = await sharedFileService.getSharedFileByIdInDepartement(fileId);
+    console.log(fileId, DepartementSharedFiles);
 
-    if (existingfile  && existingfile.length > 0) {
+    if ((existingfile  && existingfile.length > 0) || (DepartementSharedFiles && DepartementSharedFiles.length > 0)) {
       return NextResponse.json(
-        { error: 'file already shared' },
+        { message: 'file already shared' },
         { status: 400 }
       );
     }
@@ -49,14 +51,14 @@ export async function POST(request: Request) {
 
     if (!receiver) {
       return NextResponse.json(
-        { error: 'receiver does not exist' },
+        { message: 'receiver does not exist' },
         { status: 400 }
       );
     }
 
     if(receiver.departement !== payload.departement){
         return NextResponse.json(
-            { error: 'cant send to users outside your departement' },
+            { message: 'cant send to users outside your departement' },
             { status: 400 }
           );
     }
@@ -77,7 +79,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error sharing file:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { message: 'Internal server error' },
       { status: 500 }
     );
   }

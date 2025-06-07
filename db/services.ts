@@ -195,6 +195,10 @@ export const sharedFileService = {
     return await db.select().from(sharedFiles).where(eq(sharedFiles.fileId, FileId)).all();
   },
 
+  async getSharedFileByIdInDepartement(FileId: number) {
+    return await db.select().from(departmentSharedFiles).where(eq(departmentSharedFiles.fileId, FileId)).all();
+  },
+
   async getDepartmentSharedFiles(departement: string) {
     return await db.select().from(departmentSharedFiles)
       .where(eq(departmentSharedFiles.departement, departement))

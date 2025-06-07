@@ -10,9 +10,7 @@ export async function shareWithDepatement(fileId: number) {
         credentials: 'include'
       });
   
-      if (!response.ok) {
-        return null;
-      }
+      
   
       const data = await response.json();
       return data;

@@ -16,7 +16,7 @@ const FileCard: React.FC<FileCardProps> = ({ id, name  }) => {
     <div className="w-40 h-40 flex flex-col items-center justify-center space-y-2 rounded-md bg-white shadow-md hover:shadow-lg transition-shadow cursor-pointer">
       <FaFolder className={`text-xl text-gray-400`} />
       <p className="text-lg font-bold">{name}</p>
-      <p className="text-sm">files</p>
+      
     </div>
     </Link>
   );

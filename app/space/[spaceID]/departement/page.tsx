@@ -41,6 +41,7 @@ export default function UsersPage() {
       console.log('Deleting departement:', userId, result);
       //const result = deleteFile(userId);
       setIsDeleteOpen(false);
+      window.location.reload();
     };
   
     const handleSettings = (userId: number) => {
@@ -82,7 +83,7 @@ export default function UsersPage() {
                   <span className="font-semibold text-[#205295] text-lg">{user.departmentName}</span>
                   <span className="ml-6 text-gray-400">{user.userName}</span>
                 </div>
-                <span className="text-gray-300 mr-6">{user.createdAt}</span>
+                
                 <FaCog className="text-[#205295] text-xl cursor-pointer hover:text-indigo-500 transition-color" title="Manage departement" onClick={() => handleSettings(user.id)}/>
                 {isDeleteOpen && user.id === conf && (
                   <div className="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-xl p-4 z-50">

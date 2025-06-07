@@ -4,6 +4,7 @@ import { jwtVerify } from 'jose';
 import { hash } from 'argon2';
 import { userService } from '@/db/services';
 import nodemailer from 'nodemailer';
+import { error } from 'console';
 
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'your-secret-key');
@@ -25,13 +26,13 @@ export async function POST(request: Request) {
     const token = cookieStore.get('token')?.value;
 
     if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ message: 'Unauthorized', error: true }, { status: 401 });
     }
 
     const { payload } = await jwtVerify(token, JWT_SECRET);
     
     if (payload.role !== 'platform_admin') {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      return NextResponse.json({ message: 'Forbidden', error: true }, { status: 403 });
     }
 
     // Parse request body
@@ -40,7 +41,7 @@ export async function POST(request: Request) {
 
     if (!departement || !admin || !email) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { message: 'Missing required fields', error: true },
         { status: 400 }
       );
     }
@@ -50,7 +51,7 @@ export async function POST(request: Request) {
 
     if (existingAdmin) {
       return NextResponse.json(
-        { error: 'Admin already in use' },
+        { message: 'Admin already in use', error: true },
         { status: 400 }
       );
     }
@@ -100,6 +101,7 @@ export async function POST(request: Request) {
     // Return success response with the generated password
     return NextResponse.json({
       message: 'Department and admin created successfully',
+      error: false,
       department: {
         name: departement
       },
@@ -114,7 +116,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error creating department:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { message: 'Internal server error', error: true },
       { status: 500 }
     );
   }

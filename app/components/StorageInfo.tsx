@@ -15,18 +15,6 @@ const StorageInfo = ({ id }: SharedFileProps) => {
           Add New File
         </div>
       </Link>
-      <div className="mt-6 p-4 bg-[#F5F9FD] rounded-md shadow-md">
-      <p className="text-lg font-bold mb-2">Your Storage</p>
-      <p className="text-sm mb-2">
-        <span className="font-bold text-green-500">25% left</span>
-      </p>
-      <p className="text-sm mb-2">
-        75 GB used of 100 GB
-      </p>
-      <div className="w-full h-4 bg-gray-200 rounded-full">
-        <div className="w-[75%] h-4 bg-blue-500 rounded-full"></div>
-      </div>
-    </div>
     </div>
 
   );

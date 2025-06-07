@@ -10,9 +10,7 @@ export async function shareWithUser(fileId: number, email: string) {
         credentials: 'include'
       });
   
-      if (!response.ok) {
-        return null;
-      }
+      
   
       const data = await response.json();
       return data;

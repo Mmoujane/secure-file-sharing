@@ -29,18 +29,18 @@ export async function POST(request: Request) {
 
     if (!fileId || !payload.userId || !payload.departement) {
         return NextResponse.json(
-          { error: 'Missing required fields' },
+          { message: 'Missing required fields' },
           { status: 400 }
         );
     }
 
     // Check if file already exists
-    const existingfile = await sharedFileService.getSharedFileById(fileId);
+    const existingfile = await sharedFileService.getSharedFileByIdInDepartement(fileId);
     console.log(existingfile);
 
     if (existingfile  && existingfile.length > 0) {
       return NextResponse.json(
-        { error: 'file already shared' },
+        { message: 'file already shared with the departement' },
         { status: 400 }
       );
     }
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error sharing file:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { message: 'Internal server error' },
       { status: 500 }
     );
   }

@@ -24,7 +24,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ id, name, count, color, ico
         <Icon className={`text-xl ${iconColor}`} />
       </div>
       <p className="text-white text-lg font-bold">{name}</p>
-      <p className="text-white text-sm">{count} files</p>
+      
     </div>
     </Link>
   );

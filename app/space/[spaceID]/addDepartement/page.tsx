@@ -8,6 +8,8 @@ const Login: React.FC = () => {
   const [departement, setDepartement] = useState<string>('');
   const [admin, setAdmin] = useState<string>('');
   const [adminmail, setAdminMail] = useState<string>('');
+    const [status, setStatus] = useState<string>('');
+    const [error, setError] = useState<boolean>(false);
 
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -15,8 +17,10 @@ const Login: React.FC = () => {
     //console.log('Username:', departement);
     //console.log('Password:', admin);
     //console.log('email:', adminmail);
-    const result = await addNewDepartement(departement, admin, adminmail);
-    console.log(result);
+    const {message, error} = await addNewDepartement(departement, admin, adminmail);
+    console.log(message);
+    setStatus(message);
+    setError(error);
     
     
   };
@@ -27,6 +31,11 @@ const Login: React.FC = () => {
         
         <h1 className="text-2xl font-bold text-center text-[#2B548E]">Add User</h1>
 
+        {status && (
+          <div className={`p-3 ${error ? "text-red-600 bg-red-100" : "text-green-600 bg-green-100"} rounded-md`}>
+            {status}
+          </div>
+        )}
       
         <form onSubmit={handleSubmit} className="space-y-4">
           

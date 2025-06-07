@@ -12,8 +12,9 @@ interface CollaborateCardProps {
 const CollaborateCard: React.FC<CollaborateCardProps> = ({ id, name, color, image }) => {
 
   const handleColaboration = async (departement: string) => {
-      const result = await colaborate(departement);
-      console.log(result);
+      const {message} = await colaborate(departement);
+      console.log(message);
+      alert(message);
     };
 
   return (

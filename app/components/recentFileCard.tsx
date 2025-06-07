@@ -30,24 +30,28 @@ const RecentFileCard: React.FC<RecentFileCardProps> = ({ id, name, type, size, c
     setIsShareOpen(false);
   };
 
-  const handleSend = (fileId: number) => {
-    // Handle sending logic here
-    const result = shareWithDepatement(fileId);
-    console.log(result);
+  const handleSend = async (fileId: number) => {
+    const {message} = await shareWithDepatement(fileId);
+    console.log(message);
     setIsShareOpen(false);
-  };
+    alert(message);
+};
 
-  const handleSendToPerson = (fileId: number) => {
-    const result = shareWithUser(fileId, sendTo)
-    console.log(result);
+const handleSendToPerson = async (fileId: number) => {
+
+    const {message} = await shareWithUser(fileId, sendTo);
+    console.log(message);
     setIsShareOpen(false);
-  }
+    alert(message); // Error alert
+  
+};
 
-  const handleDelete = (fileId: number) => {
+  const handleDelete = async (fileId: number) => {
     // Handle delete logic here
     console.log('Deleting file:', fileId);
-    const result = deleteFile(fileId);
+    const result = await deleteFile(fileId);
     setIsDeleteOpen(false);
+    window.location.reload();
   };
 
   return (
@@ -80,7 +84,7 @@ const RecentFileCard: React.FC<RecentFileCardProps> = ({ id, name, type, size, c
                 className="px-4 py-2 bg-[#06367A] text-white rounded-md hover:bg-[#052b5f] transition-colors flex items-center gap-2"
               >
                 <FaPaperPlane />
-                Send to departemnt
+                Send to departement
               </button>
 
               <div className="flex gap-2">

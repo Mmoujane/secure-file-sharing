@@ -10,9 +10,7 @@ export async function addNewDepartement(departement: string, admin: string, emai
         credentials: 'include'
       });
   
-      if (!response.ok) {
-        return null;
-      }
+      
   
       const data = await response.json();
       return data;
